@@ -1,0 +1,48 @@
+plugins {
+    id "io.freefair.lombok" version "5.3.3.3"
+    id 'org.springframework.boot' version '2.5.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'pmd'
+}
+
+project(':') {
+    group = 'com.barrier.sidecar'
+    version = System.getenv().getOrDefault("BUILD_NUMBER", "DEV")
+    sourceCompatibility = '15'
+
+    repositories {
+        mavenCentral()
+        maven {
+            allowInsecureProtocol = true
+            url = "http://49.232.157.94:8081/repository/maven-dev/"
+        }
+    }
+
+    ext {
+        set('testcontainersVersion', "1.15.3")
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'com.barrier:barrier-spring-boot-starter:DEV'
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.testcontainers:junit-jupiter'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
