@@ -1,0 +1,3 @@
+barrier:
+  name: demo-barrier
+  enabled: true

@@ -12,8 +12,7 @@ plugins {
 
 project(':') {
     group = 'com.barrier.sidecar'
-    version = System.getenv().getOrDefault("BUILD_NUMBER", "DEV")
-    sourceCompatibility = '15'
+    sourceCompatibility = '11'
 
     repositories {
         mavenCentral()
@@ -30,7 +29,7 @@ project(':') {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'com.barrier:barrier-spring-boot-starter:DEV'
+        implementation 'com.barrier:barrier-spring-boot-starter:0.0.0'
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'org.testcontainers:junit-jupiter'

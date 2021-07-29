@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  test:
+    image: gradle:7.1.1-jdk11
+    working_dir: /app
+    environment:
+      AWS_REGION: ap-southeast-2
+    volumes:
+      - .:/app
+      - gradle-cache:/home/gradle/.gradle
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - barrier_net
+    command: gradle clean check
+
+networks:
+  barrier_net:
+
+volumes:
+  gradle-cache:
